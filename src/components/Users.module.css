@@ -1,0 +1,10 @@
+.user{
+    border: 1px dashed black;
+    padding: 20px;
+}
+
+.allUsers{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+}
