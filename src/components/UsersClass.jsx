@@ -1,15 +1,17 @@
 import React from 'react';
 import axios from 'axios'
-import styles from './Users.module.css'
+import styles from './UsersClass.module.css'
 
 
 class UsersClass extends React.Component {
+    //теряешь контекст this.loadUsers, отдаешь как функцию, как колбэк
     render() {
         return (
             <div>
+                <button onClick={this.loadUsers.bind(this)}>load users</button> 
                 <div className={styles.allUsers}>
-
-                    {this.users.map(i => {
+                    { 
+                    this.props.users.map(i => {
                         return (
                             <div className={styles.user}>
                                 {`${i.name}, email: ${i.email}, phone: ${i.phone}`}
@@ -19,6 +21,13 @@ class UsersClass extends React.Component {
                 </div>
             </div>
         )
+    }
+
+    loadUsers() {
+        if (this.props.users.length == 0) {
+            axios.get('https://jsonplaceholder.typicode.com/users')
+                .then(response => this.props.setUsers(response.data));
+        }
     }
 }
 
